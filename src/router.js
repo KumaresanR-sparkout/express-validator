@@ -40,14 +40,9 @@ router.get(
 router.post(
     "/sanitize",
     // Apply the custom sanitizer to strip tags and escape, then decode entities
-    validator.body('*').notEmpty().customSanitizer(replaceAscii),
-    // .customSanitizer(decodeEntities),
-    (req, res) => {
-        // const result = validator.validationResult(req);
+    validator.body('*').notEmpty().customSanitizer(replaceAscii).escape(),
 
-        // if (!result.isEmpty()) {
-        //     return res.status(400).json({ status: 400, message: "Invalid input data", errors: result.array() });
-        // }
+    (req, res) => {
 
         return res.json({ status: 200, sanitizedBody: req.body });
     }
